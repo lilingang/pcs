@@ -1,0 +1,32 @@
+extends layout
+block content
+    link(href="/stylesheets/signin.css" rel="stylesheet")
+    //script(src="/javascripts/grid.js")
+    link(href="/stylesheets/bootstrap-table.css" rel="stylesheet")
+    script(src="/javascripts/bootstrap-table.js")
+    .container
+        case pagetype
+            when "login"
+                form(class="form-signin" action="login" method="POST")
+                    h2(class="form-signin-heading") Please sign in
+                    input(type="text" name="username" class="form-control" value="" placeholder="Email address" required autofocus)
+                    input(type="password" name="password" class="form-control" value="" placeholder="Password" required)
+                    label(class="checkbox")
+                        input(type="checkbox" value="remember-me")
+                        p Remember me
+                    button(class="btn btn-lg btn-primary btn-block" type="submit") Sign in
+            when "normal"
+                p #{data}
+                table(data-toggle="table" data-url="/filelist")
+                    thead
+                        tr
+                            th(data-field="state" data-checkbox="true")
+                            th(data-field="server_filename")  Item ID
+                            th(data-field="path") Item Name
+                            th(data-field="server_mtime") Item Price
+    script(type='text/javascript').
+        $(document).ready(function() {
+            $('#table').bootstrapTable({
+                //data:'[{"id":0,"name":"Item0","price":"$0"},{"id":1,"name":"Item1","price":"$1"},{"id":2,"name":"Item2","price":"$2"}]'
+            });
+        });
