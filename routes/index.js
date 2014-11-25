@@ -67,16 +67,18 @@ router.all('/main',function(req,res,next) {
 
 router.all('/filelist',function(req,res,next) {
     console.log("网盘请求：token="+req.session.token);
+    var dir = req.param("dir");
+    console.log("******************"+dir+"*****************************")
     var pcs =  new PcsApi.pcs(req.session.cks);
-    pcs.list(function(code,result){
+    pcs.filelist(dir,function(code,result){
         if(!code){
             res.render('index', {pagetype:'list',title:"文件列表",data:result});
         }else{
             //res.render('index', {pagetype:'list',title:"文件列表",data:result});
             var data = JSON.parse(result);
-            console.log("李林刚"+JSON.stringify(data["list"]));
+            //console.log("李林刚"+JSON.stringify(data["list"]));
             res.writeHead(200, {'Content-Type': 'application/Json'});
-            res.end(data["list"].toString());
+            res.end(JSON.stringify(data["list"]));
         }
     });
 });

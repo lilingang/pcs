@@ -17,13 +17,15 @@ block content
                     button(class="btn btn-lg btn-primary btn-block" type="submit") Sign in
             when "normal"
                 p #{data}
-                table(data-toggle="table" data-url="/filelist")
+                table(data-toggle="table" data-url="/filelist?dir=/")
                     thead
                         tr
                             th(data-field="state" data-checkbox="true")
-                            th(data-field="server_filename")  Item ID
-                            th(data-field="path") Item Name
-                            th(data-field="server_mtime") Item Price
+                            th(data-field="server_filename")  Name
+                            th(data-field="isdir") Type
+                            th(data-field="size") Size
+                            th(data-field="server_mtime") Date
+                            th(data-field="path") Path
     script(type='text/javascript').
         $(document).ready(function() {
             $('#table').bootstrapTable({

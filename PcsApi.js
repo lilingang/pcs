@@ -2,8 +2,8 @@
 var iconv = require('iconv-lite');
 var querystring = require("querystring");
 var requestmodel = require('request');
-var tough = require('./node_modules/request/node_modules/tough-cookie');
-var Cookie = tough.Cookie;
+//var tough = require('./node_modules/request/node_modules/tough-cookie');
+//var Cookie = tough.Cookie;
 var pcs = function (cks){
     this.ckstr = cks;
     this.request = requestmodel;
@@ -28,14 +28,14 @@ var pcs = function (cks){
 
 pcs.prototype.reqparam= {
     PANHOST: 'http://pan.baidu.com/api/',
-    ulist:function(){return {url:this.PANHOST+'list?dir=/'}}
+    ulist:function(dir){return {url:this.PANHOST+'list?dir='+dir}}
 };
 
-pcs.prototype.list = function(next){
+pcs.prototype.filelist = function(dir,next){
     var _this=this;
-    console.log(_this.reqparam.ulist().url);
+    console.log(_this.reqparam.ulist(dir).url);
     _this.request({
-            url:_this.reqparam.ulist().url,
+            url:_this.reqparam.ulist(dir).url,
             method: 'GET',
             headers:{
                 cookie:_this.ckstr
